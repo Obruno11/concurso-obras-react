@@ -1,17 +1,40 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../../providers/AuthContext";
 
 export const CuadroLogin = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [password, setPass] = useState("");
+
+  const [user] = useContext(AuthContext);
 
   const manejarEnvio = (e) => {
     e.preventDefault();
+    setError('');
+
+    axios
+    .post('http://127.0.0.1:8000/api/login', {email, password})
+    .then((response) =>{
+      const {token} = response.data;
+      localStorage.setItem('token', token); //Guardar token
+      console.log('Logging exitoso');
+    })
+    .then(()=>{
+      navigate('/');
+    })
+    .catch(()=>{
+      setError('Credenciales Incorrectas');
+      console.log(error);
+    })
   };
 
   const manejarCambioEmail = (e) => {
     setEmail(e.target.value);
   };
+
   const manejarCambioPass = (e) => {
     setPass(e.target.value);
   };
@@ -32,7 +55,7 @@ export const CuadroLogin = () => {
           <p className="mb-1 mt-4">Contraseña:</p>
           <input
             type="password"
-            value={pass}
+            value={password}
             onChange={manejarCambioPass}
             name="pass"
             className="bg-zinc-50 border-2 border-zinc-100 rounded p-1"

@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 export const Inicio = () => {
   return (
     <>
-      <section className="bg-center bg-no-repeat bg-[url('https://picsum.photos/1600')] bg-gray-700 bg-blend-multiply">
+      <section className="bg-cover bg-no-repeat bg-[url('https://picsum.photos/1600')] bg-slate-500 bg-blend-multiply">
         <div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
             Caminos hacia la Inclusión
           </h1>
-          <p className="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48">
+          <p className="mb-8 text-lg font-normal text-gray-200 lg:text-xl sm:px-16 lg:px-48">
             Este concurso invita a artistas de todas las edades a presentar
             obras que promuevan la inclusión en sus múltiples formas. Desde la
             integración de personas con discapacidades, la aceptación de la
