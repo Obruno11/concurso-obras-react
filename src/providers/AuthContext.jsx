@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [usuario, setUsuario] = useState("");
 
   useEffect(() => {
-    const iniciarSesion = async () => {
+    const iniciarSesion = () => {
       axios
         .post("http://127.0.0.1:8000/api/login", { email, password })
         .then((response) => {
