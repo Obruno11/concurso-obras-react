@@ -1,34 +1,16 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import axios from '../api/axios';
+import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export const Login = () => {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors , setErrors] = useState([]);
+  
+  const {login ,errors} = useContext(AuthContext);
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    try {
-      await axios.post('/login', {email, password})
-      .then((response) => {
-        const {token, user} = response.data;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user_id', user.id);
-        localStorage.setItem('user_name', user.name);
-      })
-
-      setEmail('');
-      setPassword('');
-      navigate('/');
-    } catch (e){
-      if (e.response.status === 422){
-        setErrors(e.response.data.errors)
-      }
-    }
+    login({email, password});
   }
   return (
     <section className="flex justify-center items-center min-h-full">
@@ -38,7 +20,7 @@ export const Login = () => {
           <div className="grid grid-cols-1 gap-2">
             <div className="grid grid-cols-1 gap-1">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined opacity-50">
+                <span className="material-icons opacity-50">
                   mail
                 </span>
                 <input
@@ -54,7 +36,7 @@ export const Login = () => {
             </div>
             <div className="grid grid-cols-1 gap-1">
               <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined opacity-50">
+                <span className="material-icons opacity-50">
                   lock
                 </span>
                 <input
@@ -69,14 +51,14 @@ export const Login = () => {
               <span className="text-xs text-red-500">{errors.password}</span>
             </div>
             <div className="flex justify-center">
-              <button className="px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700">
+              <button className="px-4 py-2 bg-emerald-500 text-white rounded-full hover:bg-emerald-700 cursor-pointer">
                 Iniciar Sesion
               </button>
             </div>
           </div>
         </form>
         <Link to="/register">
-          <div className="flex justify-center p-2 hover:text-violet-700 cursor-pointer">
+          <div className="flex justify-center p-2 hover:text-emerald-500 cursor-pointer">
             No tienes cuenta? Regístrate aquí.
           </div>
         </Link>
