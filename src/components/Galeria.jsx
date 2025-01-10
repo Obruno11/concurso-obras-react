@@ -1,42 +1,21 @@
-import { useEffect, useState, useContext } from 'react';
-import axios from '../api/axios';
+import { useState } from "react";
+import { GridGaleria } from "./GridGaleria/GridGaleria";
 
-import { Card } from './Card/Card';
 export const Galeria = () => {
-  const [obras, setObras] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-
-  
-  useEffect(()=>{
-    setLoading(true)
-    axios.get('http://127.0.0.1:8000/api/obras')
-    .then((response)=>{
-      setObras(response.data);
-      setLoading(false);
-    })
-    .catch((e)=>{
-      setError(e);
-      setLoading(false);
-    })
-  }, [])
-
-  if (loading){
-    return <p>Loading Gallery...</p>
-  }
-
-  if (error){
-    return <p>Unable to load</p>
-  }
+  const [filtro, setFiltro] = useState("");
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10'>
-      {
-        obras.map((obra)=>{
-          return <Card key={obra.id} id={obra.id} titulo={obra.titulo} categoria={obra.categoria} img_url={obra.img_url}/>
-        })
-      }
+    <div className="m-10">
+      <div className="bg-white p-10 rounded-xl shadow mb-5">
+          <input
+            type="text"
+            value={filtro}
+            placeholder="Filtra por titulo de la obra..."
+            className="rounded border-2 border-zinc-300 p-1 w-full"
+            onChange={(e) => setFiltro(e.target.value)}
+          />
+      </div>
+      <GridGaleria filtro={filtro}/>
     </div>
   );
 };

@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div id="mainContent" className="bg-zinc-50">
-      <nav className="w-min-full bg-zinc-100 grid grid-cols-3 min-h-20 px-4 shadow-xl fixed top-0 end-0 start-0">
+      <nav className="w-min-full bg-zinc-100 grid grid-cols-3 min-h-20 px-4 shadow-xl fixed top-0 end-0 start-0 z-10">
         <div className="flex justify-start items-center">
           <p className="py-2 px-4 text-slate-900 text-2xl font-semibold">
             CAMINOS HACIA LA INCLUSIÓN
